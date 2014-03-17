@@ -14,7 +14,7 @@ fetch_ip_data = (country = 'CN', callback) ->
     res.on 'end', ()->
       for line in fetched_data.match CN_regex # "/apnic\|#{country}\|ipv4\|[0-9\.]+\|[0-9]+\|[0-9]+\|allocated/gi"
         params = line.split '|'
-        return_array.push [ params[3], (Math.log params[4]) / Math.LN2 ]
+        return_array.push [ params[3], 32 - (Math.log params[4]) / Math.LN2 ]
 
       (setImmediate ()->callback return_array,null ) if callback?
 
